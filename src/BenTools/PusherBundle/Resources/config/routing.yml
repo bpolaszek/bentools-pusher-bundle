@@ -1,0 +1,4 @@
+webpushbundle_register:
+    path:     /register
+    methods: [ POST ]
+    defaults: { _controller: BenToolsPusherBundle:Subscription:register }

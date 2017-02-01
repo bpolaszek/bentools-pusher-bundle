@@ -1,0 +1,4 @@
+services:
+
+    bentools.pusher:
+        class: BenTools\Pusher\Pusher
