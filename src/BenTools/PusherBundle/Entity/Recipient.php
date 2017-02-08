@@ -22,8 +22,9 @@ use function GuzzleHttp\json_decode;
  */
 class Recipient implements RecipientInterface {
 
-    const FIREFOX = 'Firefox';
-    const CHROME  = 'Chrome';
+    const FIREFOX       = 'Firefox';
+    const CHROME        = 'Chrome';
+    const CHROME_MOBILE = 'Chrome Mobile';
 
     /**
      * @var int
