@@ -84,11 +84,6 @@ class Recipient implements RecipientInterface {
     private $options = [];
 
     /**
-     * @var PushHandlerInterface
-     */
-    private $pushHandler;
-
-    /**
      * @return int
      */
     public function getId() {
@@ -283,21 +278,6 @@ class Recipient implements RecipientInterface {
      */
     public function getAuthSecret(): ?string {
         return $this->subscription['keys'][self::AUTH_SECRET];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getPushHandler(): PushHandlerInterface {
-        return $this->pushHandler;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setPushHandler(PushHandlerInterface $handler): RecipientInterface {
-        $this->pushHandler = $handler;
-        return $this;
     }
 
     /**

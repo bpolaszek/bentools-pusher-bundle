@@ -3,7 +3,7 @@
     "description": "Symfony bridge for bentools/pusher",
     "type": "symfony-bundle",
     "require": {
-        "bentools/pusher": "0.2.*",
+        "bentools/pusher": "0.3.*",
         "piwik/device-detector": "^3.7"
     },
     "require-dev": {
