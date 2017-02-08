@@ -16,14 +16,18 @@ class SubscriptionController extends Controller {
      * @return JsonResponse
      */
     public function registerAction(Request $request) {
-        $em = $this->container->get('doctrine')->getManagerForClass(Recipient::class);
-        $deviceDetector = new DeviceDetector($request->headers->get('User-Agent'));
+        $em             = $this->container->get('doctrine')->getManagerForClass(Recipient::class);
+        $userAgent      = $request->headers->get('User-Agent');
+        $ip             = $request->getClientIp();
+        $deviceDetector = new DeviceDetector($userAgent);
         $deviceDetector->parse();
 
         try {
 
             $data      = json_decode($request->getContent(), true);
             $recipient = Recipient::createFromArray($data['subscription']);
+            $recipient->setUserAgent($userAgent);
+            $recipient->setIp($ip);
 
             if ($this->getUser() && is_callable([$this->getUser(), 'getId'])) {
                 $recipient->setUserClass(get_class($this->getUser()));

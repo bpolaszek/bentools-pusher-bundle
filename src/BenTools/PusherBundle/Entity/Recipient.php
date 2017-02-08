@@ -48,6 +48,18 @@ class Recipient implements RecipientInterface {
     private $device;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", nullable = true)
+     */
+    private $userAgent;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable = true)
+     */
+    private $ip;
+
+    /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
@@ -219,6 +231,38 @@ class Recipient implements RecipientInterface {
     }
 
     /**
+     * @return string
+     */
+    public function getUserAgent() {
+        return $this->userAgent;
+    }
+
+    /**
+     * @param string $userAgent
+     * @return $this - Provides Fluent Interface
+     */
+    public function setUserAgent($userAgent) {
+        $this->userAgent = $userAgent;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIp() {
+        return $this->ip;
+    }
+
+    /**
+     * @param string $ip
+     * @return $this - Provides Fluent Interface
+     */
+    public function setIp($ip) {
+        $this->ip = $ip;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getOptions() {
@@ -290,42 +334,14 @@ class Recipient implements RecipientInterface {
     }
 
     /**
-     * @param $payload
-     *
-     * @return Recipient
-     */
-    public static function createFromPayload(string $payload, $client = null, $device = null) {
-        return static::createFromArray(json_decode($payload, true), $client, $device);
-    }
-
-    /**
      * @param $subscriptionData
      * @return static
      */
-    public static function createFromArray(array $subscriptionData, $client = null, $device = null) {
+    public static function createFromArray(array $subscriptionData) {
         $subscription = new static();
         $subscription->setSubscription($subscriptionData);
-        $subscription->setClient($client ?? self::detectProviderFromEndpoint($subscriptionData['endpoint']));
-        $subscription->setDevice($device);
         return $subscription;
     }
 
-    /**
-     * @param $endpoint
-     *
-     * @return int
-     * @throws \RuntimeException
-     */
-    public static function detectProviderFromEndpoint($endpoint) {
-        switch (true) {
-            case strpos($endpoint, 'https://updates.push.services.mozilla.com') !== false:
-                return self::FIREFOX;
-            case strpos($endpoint, 'https://fcm.googleapis.com/gcm/send/') !== false:
-            case strpos($endpoint, 'https://android.googleapis.com/gcm/send/') !== false:
-                return self::CHROME;
-            default:
-                return null;
-        }
-    }
 }
 
