@@ -244,14 +244,14 @@ class Recipient implements RecipientInterface {
     /**
      * @inheritDoc
      */
-    public function getEndpoint(): ?string {
+    public function getEndpoint(): string {
         return $this->subscription['endpoint'] ?? null;
     }
 
     /**
      * @inheritDoc
      */
-    public function setEndpoint(?string $endpoint): RecipientInterface {
+    public function setEndpoint(string $endpoint): RecipientInterface {
         $this->subscription['endpoint'] = $endpoint;
         return $this;
     }
