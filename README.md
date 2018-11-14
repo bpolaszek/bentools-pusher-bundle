@@ -1,3 +1,5 @@
+⚠️ **This bundle is now deprecated in favor of [bentools/webpush-bundle](https://github.com/bpolaszek/webpush-bundle)**
+
 Pusher Bundle
 =========
 
